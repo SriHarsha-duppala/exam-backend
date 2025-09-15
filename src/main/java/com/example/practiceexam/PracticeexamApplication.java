@@ -19,7 +19,7 @@ public class PracticeexamApplication {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOrigins("https://sriharsha-practice-test.onrender.com/")
+                        .allowedOrigins("https://sriharshapracticetest.netlify.app/")
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                         .allowCredentials(true);
             }
