@@ -1663,17 +1663,7 @@ questionBank.add(new Question(null,"Aptitude","HCF of 18 and 24? ","12","3","6",
             questionBank.add(new Question(null,"General Knowledge","Which country won the 2023 ICC Cricket World Cup?","Australia","Pakistan","India","England","A"));
             questionBank.add(new Question(null,"General Knowledge","Which country hosted UEFA Euro 2024?","Germany","Italy","France","Spain","A"));
             
-            // --- Batch insert in chunks of 100 ---
-            int batchSize = 100;
-            for (int i = 0; i < allQuestions.size(); i += batchSize) {
-                int end = Math.min(i + batchSize, allQuestions.size());
-                questionRepo.saveAll(allQuestions.subList(i, end));
-                questionRepo.flush(); // force commit to DB
-            }
-
-            System.out.println("All questions inserted successfully!");
-        }
-    }
+            
 }
 
             // ----------------- Assign Questions to Exams -----------------
