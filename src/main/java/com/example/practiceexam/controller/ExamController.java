@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/exams")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "https://sriharshapracticetest.netlify.app/")
 public class ExamController {
 
     private final ExamRepository examRepo;
