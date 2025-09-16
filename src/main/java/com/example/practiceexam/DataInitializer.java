@@ -24,18 +24,18 @@ public class DataInitializer implements CommandLineRunner {
  @Override
     public void run(String... args) throws Exception {
 
-        // ----------------- 1. Create Exams if not exist -----------------
-        Exam ssc = examRepo.findByName("SSC Practice Test")
-                .orElseGet(() -> examRepo.save(new Exam("SSC Practice Test", "Aptitude, Reasoning & GK", 45)));
+        // // ----------------- 1. Create Exams if not exist -----------------
+        // Exam ssc = examRepo.findByName("SSC Practice Test")
+        //         .orElseGet(() -> examRepo.save(new Exam("SSC Practice Test", "Aptitude, Reasoning & GK", 45)));
 
-        Exam rrb = examRepo.findByName("RRB Practice Test")
-                .orElseGet(() -> examRepo.save(new Exam("RRB Practice Test", "Numerical Ability, Reasoning & General Awareness", 60)));
+        // Exam rrb = examRepo.findByName("RRB Practice Test")
+        //         .orElseGet(() -> examRepo.save(new Exam("RRB Practice Test", "Numerical Ability, Reasoning & General Awareness", 60)));
 
-        Exam upsc = examRepo.findByName("UPSC Practice Test")
-                .orElseGet(() -> examRepo.save(new Exam("UPSC Practice Test", "General Studies & Current Affairs", 90)));
+        // Exam upsc = examRepo.findByName("UPSC Practice Test")
+        //         .orElseGet(() -> examRepo.save(new Exam("UPSC Practice Test", "General Studies & Current Affairs", 90)));
 
-        Exam bank = examRepo.findByName("Bank PO Test")
-                .orElseGet(() -> examRepo.save(new Exam("Bank PO Test", "Quantitative Aptitude, Reasoning & GK", 60)));
+        // Exam bank = examRepo.findByName("Bank PO Test")
+        //         .orElseGet(() -> examRepo.save(new Exam("Bank PO Test", "Quantitative Aptitude, Reasoning & GK", 60)));
 
         // ----------------- 2. Delete duplicate exams only -----------------
         List<Exam> allExams = examRepo.findAll();
