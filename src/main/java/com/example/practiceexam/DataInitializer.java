@@ -22,16 +22,31 @@ public class DataInitializer implements CommandLineRunner {
         this.qRepo = qRepo;
     }
 
-    @Override
+    // @Override
+    // public void run(String... args) throws Exception {
+
+    //     if (examRepo.count() == 0) {
+
+    //         // ----------------- Create Exams -----------------
+    //         Exam ssc = examRepo.save(new Exam("SSC Practice Test", "Aptitude, Reasoning & GK", 45));
+    //         Exam rrb = examRepo.save(new Exam("RRB Practice Test", "Numerical Ability, Reasoning & General Awareness", 60));
+    //         Exam upsc = examRepo.save(new Exam("UPSC Practice Test", "General Studies & Current Affairs", 90));
+    //         Exam bank = examRepo.save(new Exam("Bank PO Test", "Quantitative Aptitude, Reasoning & GK", 60));
+@Override
     public void run(String... args) throws Exception {
 
-        if (examRepo.count() == 0) {
+        // --- Step 1: Create exams if they do NOT exist ---
+        Exam ssc = examRepo.findByName("SSC Practice Test")
+                .orElseGet(() -> examRepo.save(new Exam("SSC Practice Test", "Aptitude, Reasoning & GK", 45)));
 
-            // ----------------- Create Exams -----------------
-            Exam ssc = examRepo.save(new Exam("SSC Practice Test", "Aptitude, Reasoning & GK", 45));
-            Exam rrb = examRepo.save(new Exam("RRB Practice Test", "Numerical Ability, Reasoning & General Awareness", 60));
-            Exam upsc = examRepo.save(new Exam("UPSC Practice Test", "General Studies & Current Affairs", 90));
-            Exam bank = examRepo.save(new Exam("Bank PO Test", "Quantitative Aptitude, Reasoning & GK", 60));
+        Exam rrb = examRepo.findByName("RRB Practice Test")
+                .orElseGet(() -> examRepo.save(new Exam("RRB Practice Test", "Numerical Ability, Reasoning & General Awareness", 60)));
+
+        Exam upsc = examRepo.findByName("UPSC Practice Test")
+                .orElseGet(() -> examRepo.save(new Exam("UPSC Practice Test", "General Studies & Current Affairs", 90)));
+
+        Exam bank = examRepo.findByName("Bank PO Test")
+                .orElseGet(() -> examRepo.save(new Exam("Bank PO Test", "Quantitative Aptitude, Reasoning & GK", 60)));
 
             List<Exam> exams = List.of(ssc, rrb, upsc, bank);
 
