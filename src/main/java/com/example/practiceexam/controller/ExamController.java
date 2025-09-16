@@ -35,7 +35,8 @@ public class ExamController {
             @RequestParam(defaultValue = "60") int count,
             @RequestParam(defaultValue = "false") boolean includeAnswers) {
 
-        List<Question> questions = qRepo.findByExamId(id);
+        // Corrected method call here
+        List<Question> questions = qRepo.findByExam_Id(id);
 
         // randomize and limit
         Collections.shuffle(questions);
@@ -60,7 +61,7 @@ public class ExamController {
             if (includeAnswers) {
                 map.put("correctOption", q.getCorrectOption());
 
-                // NEW: also send actual correct answer text:
+                // also send actual correct answer text
                 String correctText = null;
                 switch (q.getCorrectOption()) {
                     case "A": correctText = q.getOptionA(); break;
