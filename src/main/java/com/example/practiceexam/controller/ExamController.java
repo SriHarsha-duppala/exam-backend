@@ -21,7 +21,24 @@ public class ExamController {
         this.examRepo = examRepo;
         this.qRepo = qRepo;
     }
+@GetMapping("/questions/count")
+public Map<String, Object> getQuestionCounts() {
+    Map<String, Object> response = new HashMap<>();
 
+    // Total count of questions
+    long totalQuestions = qRepo.count();
+    response.put("totalQuestions", totalQuestions);
+
+    // Count by exam
+    Map<Long, Long> perExam = examRepo.findAll().stream()
+            .collect(Collectors.toMap(
+                    Exam::getId,
+                    exam -> qRepo.countByExamId(exam.getId())
+            ));
+    response.put("questionsPerExam", perExam);
+
+    return response;
+}
     // --- Get list of all exams ---
     @GetMapping
     public List<Exam> listExams() {
