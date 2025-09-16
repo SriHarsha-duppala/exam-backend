@@ -21,34 +21,73 @@ public class DataInitializer implements CommandLineRunner {
         this.examRepo = examRepo;
         this.qRepo = qRepo;
     }
-
-    @Override
+ @Override
     public void run(String... args) throws Exception {
 
-        if (examRepo.count() == 0) {
+        // ----------------- 1. Create Exams if not exist -----------------
+        Exam ssc = examRepo.findByName("SSC Practice Test")
+                .orElseGet(() -> examRepo.save(new Exam("SSC Practice Test", "Aptitude, Reasoning & GK", 45)));
 
-            // ----------------- Create Exams -----------------
-            Exam ssc = examRepo.save(new Exam("SSC Practice Test", "Aptitude, Reasoning & GK", 45));
-            Exam rrb = examRepo.save(new Exam("RRB Practice Test", "Numerical Ability, Reasoning & General Awareness", 60));
-            Exam upsc = examRepo.save(new Exam("UPSC Practice Test", "General Studies & Current Affairs", 90));
-            Exam bank = examRepo.save(new Exam("Bank PO Test", "Quantitative Aptitude, Reasoning & GK", 60));
-// @Override
-//     public void run(String... args) throws Exception {
+        Exam rrb = examRepo.findByName("RRB Practice Test")
+                .orElseGet(() -> examRepo.save(new Exam("RRB Practice Test", "Numerical Ability, Reasoning & General Awareness", 60)));
 
-//         // --- Step 1: Create exams if they do NOT exist ---
-//         Exam ssc = examRepo.findByName("SSC Practice Test")
-//                 .orElseGet(() -> examRepo.save(new Exam("SSC Practice Test", "Aptitude, Reasoning & GK", 45)));
+        Exam upsc = examRepo.findByName("UPSC Practice Test")
+                .orElseGet(() -> examRepo.save(new Exam("UPSC Practice Test", "General Studies & Current Affairs", 90)));
 
-//         Exam rrb = examRepo.findByName("RRB Practice Test")
-//                 .orElseGet(() -> examRepo.save(new Exam("RRB Practice Test", "Numerical Ability, Reasoning & General Awareness", 60)));
+        Exam bank = examRepo.findByName("Bank PO Test")
+                .orElseGet(() -> examRepo.save(new Exam("Bank PO Test", "Quantitative Aptitude, Reasoning & GK", 60)));
 
-//         Exam upsc = examRepo.findByName("UPSC Practice Test")
-//                 .orElseGet(() -> examRepo.save(new Exam("UPSC Practice Test", "General Studies & Current Affairs", 90)));
+        // ----------------- 2. Delete duplicate exams only -----------------
+        List<Exam> allExams = examRepo.findAll();
+        Map<String, List<Exam>> grouped = allExams.stream()
+                .collect(Collectors.groupingBy(Exam::getName));
 
-//         Exam bank = examRepo.findByName("Bank PO Test")
-//                 .orElseGet(() -> examRepo.save(new Exam("Bank PO Test", "Quantitative Aptitude, Reasoning & GK", 60)));
+        List<Exam> duplicates = new ArrayList<>();
+        for (List<Exam> group : grouped.values()) {
+            if (group.size() > 1) {
+                // keep first, delete rest
+                duplicates.addAll(group.subList(1, group.size()));
+            }
+        }
 
-//             List<Exam> exams = List.of(ssc, rrb, upsc, bank);
+        if (!duplicates.isEmpty()) {
+            examRepo.deleteAll(duplicates);
+            System.out.println("Deleted duplicate exams: " + duplicates.size());
+        } @Override
+    public void run(String... args) throws Exception {
+
+        // ----------------- 1. Create Exams if not exist -----------------
+        Exam ssc = examRepo.findByName("SSC Practice Test")
+                .orElseGet(() -> examRepo.save(new Exam("SSC Practice Test", "Aptitude, Reasoning & GK", 45)));
+
+        Exam rrb = examRepo.findByName("RRB Practice Test")
+                .orElseGet(() -> examRepo.save(new Exam("RRB Practice Test", "Numerical Ability, Reasoning & General Awareness", 60)));
+
+        Exam upsc = examRepo.findByName("UPSC Practice Test")
+                .orElseGet(() -> examRepo.save(new Exam("UPSC Practice Test", "General Studies & Current Affairs", 90)));
+
+        Exam bank = examRepo.findByName("Bank PO Test")
+                .orElseGet(() -> examRepo.save(new Exam("Bank PO Test", "Quantitative Aptitude, Reasoning & GK", 60)));
+
+        // ----------------- 2. Delete duplicate exams only -----------------
+        List<Exam> allExams = examRepo.findAll();
+        Map<String, List<Exam>> grouped = allExams.stream()
+                .collect(Collectors.groupingBy(Exam::getName));
+
+        List<Exam> duplicates = new ArrayList<>();
+        for (List<Exam> group : grouped.values()) {
+            if (group.size() > 1) {
+                // keep first, delete rest
+                duplicates.addAll(group.subList(1, group.size()));
+            }
+        }
+
+        if (!duplicates.isEmpty()) {
+            examRepo.deleteAll(duplicates);
+            System.out.println("Deleted duplicate exams: " + duplicates.size());
+        }
+  
+
 
             // ----------------- Create Questions -----------------
             List<Question> questionBank = new ArrayList<>();
