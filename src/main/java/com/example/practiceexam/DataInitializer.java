@@ -21,15 +21,21 @@ public class DataInitializer implements CommandLineRunner {
         this.examRepo = examRepo;
         this.qRepo = qRepo;
     }
- @Override
+
+      @Override
     public void run(String... args) throws Exception {
 
-       Exam ssc = examRepo.save(new Exam("SSC Practice Test", "Aptitude, Reasoning & GK", 45));
+        if (examRepo.count() == 0) {
+
+            // ----------------- Create Exams -----------------
+            Exam ssc = examRepo.save(new Exam("SSC Practice Test", "Aptitude, Reasoning & GK", 45));
             Exam rrb = examRepo.save(new Exam("RRB Practice Test", "Numerical Ability, Reasoning & General Awareness", 60));
             Exam upsc = examRepo.save(new Exam("UPSC Practice Test", "General Studies & Current Affairs", 90));
-            Exam bank = examRepo.save(new Exam("Bank PO Test", "Quantitative Aptitude, Reasoning & GK", 60));
+            Exam bank = examRepo.save(new Exam("Bank PO Test", "Quantitative Aptitude, Reasoning & GK", 60));
 
-            // ----------------- Create Questions -----------------
+            List<Exam> exams = List.of(ssc, rrb, upsc, bank);
+
+       // ----------------- Create Questions -----------------
             List<Question> questionBank = new ArrayList<>();
             Random rand = new Random();
 
