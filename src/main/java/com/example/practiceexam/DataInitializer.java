@@ -1663,7 +1663,7 @@ questionBank.add(new Question(null,"Aptitude","HCF of 18 and 24? ","12","3","6",
             questionBank.add(new Question(null,"General Knowledge","Which country won the 2023 ICC Cricket World Cup?","Australia","Pakistan","India","England","A"));
             questionBank.add(new Question(null,"General Knowledge","Which country hosted UEFA Euro 2024?","Germany","Italy","France","Spain","A"));
             
-            
+              qRepo.saveAll(questionBank);
 
 
             // ----------------- Assign Questions to Exams -----------------
