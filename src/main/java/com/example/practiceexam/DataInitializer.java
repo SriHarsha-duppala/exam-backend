@@ -41,7 +41,7 @@ public class DataInitializer implements CommandLineRunner {
 
            
             // 68-100 GK Questions
-            questionBank.add(new Question(null,"General Knowledge","Capital of India?","Mumbai","Chennai","Kolkata","New Delhi","D"));
+            // questionBank.add(new Question(null,"General Knowledge","Capital of India?","Mumbai","Chennai","Kolkata","New Delhi","D"));
           
             questionBank.add(new Question(null,"General Knowledge","President of India?","Narendra Modi","Droupadi Murmu","Ram Nath Kovind","Pranab Mukherjee","B"));
             questionBank.add(new Question(null,"General Knowledge","Largest continent?","Asia","Africa","Europe","Australia","A"));
